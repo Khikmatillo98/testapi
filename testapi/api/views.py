@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Poll, Choice 
-from .serializers import PollSerializer 
+from .models import Poll, Choice , Vote
+from .serializers import PollSerializer , ChoiceSerializer, VoteSerializer
 from django.http import JsonResponse 
 from rest_framework.views import APIView 
 from rest_framework.response import Response 
@@ -27,4 +27,14 @@ class PollDetail(generics.RetrieveDestroyAPIView):
     # def get(self, request, pk):
     #     poll = get_object_or_404(Poll, pk=pk)
     #     data = PollSerializer(poll).data 
-    #     return Response(data)
+    #     return Response(data) 
+
+class Choicelist(generics.ListCreateAPIView):
+    queryset = Choice.objects.all()
+    serializer_class = ChoiceSerializer
+
+
+
+class VoteList(generics.ListCreateAPIView):
+    query = Vote.objects.all()
+    serializer_class = VoteSerializer  
