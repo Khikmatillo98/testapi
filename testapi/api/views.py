@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response 
 from django.shortcuts import get_object_or_404
 from rest_framework import generics 
-from rest_framework import status 
+from rest_framework import status, viewsets 
 
 
 # Create your views here.
@@ -34,7 +34,7 @@ class PollDetail(generics.RetrieveDestroyAPIView):
 class ChoiceList(generics.ListCreateAPIView):
     
     def get_queryset(self):
-        queryset = Poll.objects.filter(poll_id=self.kwargs['pk'])
+        queryset = Choice.objects.filter(poll_id=self.kwargs['pk'])
         return queryset 
 
     serializer_class = ChoiceSerializer
@@ -58,3 +58,7 @@ class CreateVote(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class PollViewSet(viewsets.ModelViewSet):
+    queryset = Poll.objects.all()
+    serializer_class = PollSerializer
