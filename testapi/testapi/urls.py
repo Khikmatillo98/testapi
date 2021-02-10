@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import PollDetail, PollList, CreateVote, ChoiceList, PollViewSet
+from api.views import PollDetail, PollList, CreateVote, ChoiceList, PollViewSet, UserCreate
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -26,7 +26,11 @@ urlpatterns = [
     path('polls/', PollList.as_view(), name = 'polls_list'),
     
     path('polls/<int:pk>/choices/', ChoiceList.as_view(), name='choice_list'),
-    path('polls/<int:pk>/choices/<int:choice_pk>/vote', CreateVote.as_view(), name='create_vote')
+    path('polls/<int:pk>/choices/<int:choice_pk>/vote', CreateVote.as_view(), name='create_vote'),
+    path('users/', UserCreate.as_view(), name='user_create'),
+    
+
+    
     
 ]
 
